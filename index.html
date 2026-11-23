@@ -186,6 +186,9 @@ function empty(ic,t,btn){return`<div class="empty"><div class="ic">${ic}</div><p
 function vWelcome(){return`<div class="hero"><h1>Sua próxima impressão pode ser seu próximo contrato.</h1><p>Conectamos quem precisa de uma peça impressa em 3D com quem tem impressora.</p></div>
  <button class="big" data-a="enter" data-p="client"><span class="ic">📸</span><span><b>Preciso de uma impressão</b><span class="muted sm">Mande uma foto. É grátis.</span></span></button>
  <button class="big" data-a="enter" data-p="maker"><span class="ic">🖨️</span><span><b>Tenho impressora 3D</b><span class="muted sm">Receba pedidos de clientes.</span></span></button>
+ <div class="card" style="margin-top:18px"><h3>Sem comissão sobre contratos</h3><p class="muted sm" style="margin:0 0 10px"><b>O maker paga para encontrar o cliente. Não paga para fechar o contrato.</b> O Printou cobra só as moedas de desbloqueio. O resto é combinado direto entre as partes.</p>
+ <div class="grid" style="grid-template-columns:1fr auto;gap:6px"><div>Contrato fechado</div><div><b>R$ 2.000,00</b></div><div>Comissão do Printou</div><div><b>R$ 0,00</b></div><div>Taxa pela contratação</div><div><b>R$ 0,00</b></div><div>Maker recebe</div><div><b style="color:var(--ok)">R$ 2.000,00</b></div></div>
+ <div class="muted sm" style="margin-top:8px">Exemplo ilustrativo. O custo das moedas não depende do valor do contrato.</div></div>
  <p class="muted sm" style="text-align:center">Teste inicial: estado de São Paulo</p>`}
 function vSignupC(){F.type=F.type||'PF';return`${back('','Início')}<h1>Criar conta</h1><p class="muted">Só o básico. Seus dados só vão para o maker que desbloquear seu pedido.</p>
  <label>Seu nome</label><input data-k="F.name" value="${esc(F.name||'')}" placeholder="Nome">
@@ -283,6 +286,7 @@ function vMWallet(){const m=S.maker;const pk=PK.filter(p=>!p.first||!m.firstBoug
  return`<h1>Moedas</h1><div class="hero"><p>Seu saldo</p><h1 style="font-size:40px;margin:0">🪙 ${bal(m)}</h1></div>
  ${lots(m).length?`<h2 style="margin-top:0">Validade</h2>${lots(m).map(l=>`<div class="card soft row between"><b>🪙 ${l.n}</b><span class="muted sm">vence em ${left(l.exp)}</span></div>`).join('')}`:''}
  <h2>Comprar moedas</h2>${packs(pk)}
+ <div class="card soft sm"><b>Sem comissão:</b> você paga só para desbloquear. Fica com 100% do que combinar com o cliente.</div>
  <div class="card soft sm muted">Moedas valem ${CFG.validade} dias. Desbloqueios começam em 150 moedas. Pacotes maiores são sugestão. Pix simulado.</div>`}
 function packs(pk){return pk.map(p=>{const i=PK.indexOf(p);const big=p.p>=CFG.trialExtraMin&&!S.maker.extra;return`<div class="card"><div class="row between"><div><b style="font-size:20px">🪙 ${p.c}</b>${p.first?' <span class="tag ok">Primeira compra</span>':''}${big?' <span class="tag gold">+7 dias Ouro</span>':''}</div><b>${brl(p.p)}</b></div><div style="margin-top:10px"><button class="btn ${p.first?'':'sec'}" data-a="buyM" data-p="${i}">Comprar</button></div></div>`}).join('')}
 function vMe(){const m=S.maker,li=levelIdx(m),L=LV[li],N=LV[li+1],ac=access(effLevel(m));
@@ -311,7 +315,7 @@ function vChat(rid,mid){const r=req(rid);if(!r)return empty('🤷','Conversa nã
  <div class="muted sm">Telefone e e-mail só aparecem para quem tem o nível e fez o desbloqueio.</div>`}
 function vAbout(){return`${back('','Início')}<h1>Sobre este protótipo</h1>
  <div class="card"><h3>É simulado</h3><ul class="clean sm"><li>Dados ficam só neste navegador</li><li>Pix, CEP e verificação de contas são de mentira</li><li>Os makers e clientes são fictícios</li><li>Cliente e maker precisam estar no mesmo aparelho</li></ul></div>
- <div class="card"><h3>Já definido</h3><ul class="clean sm"><li>Cliente publica grátis, maker paga para desbloquear</li><li>No máximo 4 makers por pedido</li><li>Moedas valem 90 dias</li><li>Níveis: Iniciante, Prata, Ouro e Platinum</li><li>Distribuição 70/30 (matching e descoberta)</li><li>Destaque do cliente: ${CFG.destaque} moedas</li><li>3 dias de Ouro para novos makers; +7 dias ao comprar R$ 150</li><li>Teste no estado de São Paulo</li></ul></div>
+ <div class="card"><h3>Já definido</h3><ul class="clean sm"><li>Cliente publica grátis, maker paga para desbloquear</li><li>Sem comissão sobre contratos: o maker fica com 100%</li><li>No máximo 4 makers por pedido</li><li>Moedas valem 90 dias</li><li>Níveis: Iniciante, Prata, Ouro e Platinum</li><li>Distribuição 70/30 (matching e descoberta)</li><li>Destaque do cliente: ${CFG.destaque} moedas</li><li>3 dias de Ouro para novos makers; +7 dias ao comprar R$ 150</li><li>Teste no estado de São Paulo</li></ul></div>
  <div class="card"><h3>Ainda em aberto</h3><ul class="clean sm"><li>Nome final e marca no INPI; domínio printou.com.br</li><li>Tarifa de energia (R$ 1,50/kWh é hipótese)</li><li>Preço por kg dos outros materiais</li><li>Hora-máquina de equipamentos como a H2D</li><li>Pacotes de moedas para empresas</li><li>Primeiro desbloqueio grátis: mantém ou perde?</li><li>O Ouro mantém o e-mail do cliente, além do telefone?</li><li>Metas de contratos por nível</li><li>Critérios de reembolso de lead falso</li><li>Parecer jurídico sobre moedas</li></ul></div>
  <button class="btn ghost" data-a="reset">Apagar dados do protótipo</button>`}
 
