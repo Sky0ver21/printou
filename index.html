@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0B1F3A">
+<title>Printou</title>
+<style>
+:root{--navy:#0B1F3A;--blue:#1D4ED8;--el:#2F6BFF;--sky:#E8F0FF;--bg:#F3F6FB;--ink:#0B1F3A;--mut:#5B6B85;--line:#DCE4F2;--ok:#15803D;--okbg:#E4F6EA;--warn:#B45309;--warnbg:#FEF3C7;--bad:#B91C1C;--gold:#B7791F;--goldbg:#FDF3D7;--white:#fff}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:inherit;text-decoration:none}
+#app{max-width:480px;min-height:100vh;margin:0 auto;background:var(--white);position:relative;box-shadow:0 0 40px rgba(11,31,58,.08)}
+header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--navy);color:#fff;position:sticky;top:0;z-index:5}
+.logo{font-weight:800;font-size:22px;letter-spacing:-.5px}.logo b{color:#6FA0FF}
+.lnk{background:none;border:0;color:#BFD2FF;font:inherit;font-size:14px;padding:8px;cursor:pointer}
+.strip{background:var(--sky);color:var(--blue);font-size:11px;text-align:center;padding:4px 8px}
+main{padding:16px 16px 96px}
+h1{font-size:26px;line-height:1.15;margin:4px 0 8px;letter-spacing:-.5px}
+h2{font-size:18px;margin:22px 0 10px}
+h3{font-size:15px;margin:0 0 6px}
+.muted{color:var(--mut)}.sm{font-size:13px}.grow{flex:1;min-width:0}
+.row{display:flex;gap:10px;align-items:center}.between{justify-content:space-between}.col{display:flex;flex-direction:column;gap:10px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:52px;padding:12px 18px;border:0;border-radius:14px;background:var(--el);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+.btn:active{transform:scale(.98)}
+.btn.sec{background:var(--sky);color:var(--blue)}.btn.ghost{background:none;border:2px solid var(--line);color:var(--ink)}
+.btn.dark{background:var(--navy)}.btn.sm{min-height:42px;font-size:14px;width:auto;padding:8px 14px}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.card{display:block;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+.card.soft{background:var(--bg);border-color:transparent}
+.opp{display:flex;gap:12px}
+.thumb{width:72px;height:72px;border-radius:12px;background:var(--sky);display:flex;align-items:center;justify-content:center;font-size:34px;overflow:hidden;flex:none}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.thumb.big{width:100%;height:190px;font-size:70px;margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;border:2px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:9px 14px;font:inherit;font-size:14px;cursor:pointer}
+.chip.on{border-color:var(--el);background:var(--sky);color:var(--blue);font-weight:700}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--sky);color:var(--blue);margin:4px 4px 0 0}
+.tag.ok{background:var(--okbg);color:var(--ok)}.tag.warn{background:var(--warnbg);color:var(--warn)}.tag.gold{background:var(--goldbg);color:var(--gold)}.tag.gray{background:var(--bg);color:var(--mut)}
+.score{font-weight:800;font-size:13px;padding:3px 8px;border-radius:8px;height:fit-content}
+.score.hi{background:var(--okbg);color:var(--ok)}.score.mid{background:var(--sky);color:var(--blue)}.score.lo{background:var(--bg);color:var(--mut)}
+label{display:block;font-weight:700;font-size:14px;margin:16px 0 6px}
+label small{font-weight:400;color:var(--mut)}
+input,textarea,select{width:100%;font:inherit;padding:13px 14px;border:2px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
+input:focus,textarea:focus,select:focus{outline:0;border-color:var(--el)}
+textarea{min-height:84px;resize:vertical}
+.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;height:150px;border:2px dashed var(--el);border-radius:16px;background:var(--sky);color:var(--blue);font-weight:700;text-align:center;cursor:pointer;overflow:hidden}
+.drop img{width:100%;height:100%;object-fit:cover}
+.hero{background:linear-gradient(160deg,var(--navy),#16407A);color:#fff;border-radius:20px;padding:22px 18px;margin-bottom:16px}
+.hero h1{font-size:28px}.hero p{color:#CFE0FF;margin:0}
+.big{display:flex;gap:14px;align-items:center;text-align:left;padding:18px;border-radius:18px;border:2px solid var(--line);background:#fff;font:inherit;width:100%;margin-bottom:12px;cursor:pointer}
+.big .ic{font-size:34px}.big b{display:block;font-size:18px}
+.big:active{border-color:var(--el)}
+.bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:var(--el);border-radius:99px}
+.est{background:var(--sky);border-radius:16px;padding:14px}.est b{font-size:24px;color:var(--blue)}
+.verdict{border-radius:12px;padding:10px 12px;font-size:14px;margin-top:10px}
+.verdict.ok{background:var(--okbg);color:var(--ok)}.verdict.warn{background:var(--warnbg);color:var(--warn)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid div{background:var(--bg);border-radius:12px;padding:10px 12px}.grid span{display:block;font-size:12px;color:var(--mut)}
+.blur{filter:blur(5px);user-select:none}
+.banner{border-radius:14px;padding:12px 14px;margin-bottom:12px;font-size:14px}
+.banner.gold{background:var(--goldbg);color:#7A5410}.banner.blue{background:var(--sky);color:var(--blue)}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);display:flex;background:#fff;border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom));z-index:6}
+nav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;color:var(--mut);padding:6px 2px;border-radius:12px}
+nav a span{font-size:22px;line-height:1}nav a.on{color:var(--blue);font-weight:700}
+nav a.plus span{background:var(--el);color:#fff;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:-18px;box-shadow:0 4px 12px rgba(47,107,255,.4)}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--blue);font-weight:700;margin-bottom:8px;padding:6px 0}
+.sheet-bg{position:fixed;inset:0;background:rgba(11,31,58,.55);z-index:20;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:#fff;width:min(480px,100%);border-radius:22px 22px 0 0;padding:20px 16px calc(20px + env(safe-area-inset-bottom));max-height:88vh;overflow:auto}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 18px;border-radius:12px;z-index:30;font-size:14px;max-width:90%}
+.msgs{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.bub{max-width:80%;padding:10px 13px;border-radius:16px;background:var(--bg)}
+.bub.me{align-self:flex-end;background:var(--el);color:#fff}
+.chatbar{display:flex;gap:8px;position:sticky;bottom:70px;background:#fff;padding:8px 0}
+.chatbar input{flex:1}.chatbar button{width:auto}
+.empty{text-align:center;padding:30px 10px;color:var(--mut)}.empty .ic{font-size:44px}
+.lock{color:var(--mut)}
+.steps{display:flex;gap:6px;margin:6px 0 14px}.steps i{flex:1;height:5px;border-radius:9px;background:var(--line)}.steps i.on{background:var(--el)}
+ul.clean{margin:0;padding-left:20px}ul.clean li{margin:4px 0}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+/* ===== PRINTOU — protótipo clicável. Tudo é simulado (dados no navegador). ===== */
+const KEY='printou_v1';
+/* Regras e valores. Na versão real isso vira configuração no servidor. */
+const CFG={kg:{PLA:100,PETG:100,ABS:110,ASA:160,TPU:180,Resina:200,Nylon:300,'PETG-CF':250},hora:2,kwh:1.5,w:500,min:1.5,max:2.5,vagas:4,validade:90,trialDias:3,trialExtraDias:7,trialExtraMin:150,destaque:20,clientePack:{c:100,p:50}};
+const PK=[{c:500,p:34.9,first:1},{c:500,p:50},{c:1100,p:100},{c:1700,p:150},{c:2800,p:250}];
+const LV=[{n:'Iniciante',c:0,r:0},{n:'Prata',c:3,r:2},{n:'Ouro',c:10,r:8},{n:'Platinum',c:25,r:20}]; /* limites ILUSTRATIVOS */
+const CATS=[
+ {k:'reposicao',n:'Peça de reposição',e:'🔧',g:60,h:3,need:0},{k:'suporte',n:'Suporte ou organizador',e:'🗂️',g:60,h:3,need:0},
+ {k:'mini',n:'Miniatura ou action figure',e:'🧙',g:80,h:10,need:1},{k:'deco',n:'Decoração',e:'🪴',g:150,h:8,need:0},
+ {k:'brinde',n:'Brinde ou chaveiro',e:'🔑',g:15,h:.6,need:0},{k:'proto',n:'Protótipo',e:'📐',g:100,h:5,need:1},
+ {k:'tecnica',n:'Peça técnica ou mecânica',e:'⚙️',g:90,h:5,need:2},{k:'lote',n:'Lote industrial',e:'🏭',g:40,h:2,need:2},
+ {k:'modelagem',n:'Só modelagem 3D',e:'🧊',g:0,h:0,need:0},{k:'outro',n:'Outro',e:'✨',g:100,h:5,need:0}];
+const KW={reposicao:'quebr repos substit peça adapt',suporte:'suporte organiz porta apoio',mini:'miniatura figure boneco rpg colecion',deco:'decor vaso enfeite',brinde:'brinde chaveiro logo',proto:'protótipo prototipo',tecnica:'engrenagem técnic tecnic mecân mecan',lote:'lote indústr industr 100 peças',modelagem:'modelar modelagem desenhar'};
+const MATS=['PLA','PETG','ABS','ASA','TPU','Resina','Nylon','PETG-CF'];
+const EQUIP=['Básica','Intermediária','Avançada','Industrial'];
+const EQHINT=['ex.: Ender, Creality','ex.: Bambu P1S ou X1C','ex.: câmara fechada, H2D','nível industrial'];
+const SPECS=['Action figures','Impressão industrial','Impressão geral','Impressão com personalização de arquivo','Prototipagem','Peças técnicas','Modelagem 3D'];
+const CATSPEC={mini:'Action figures',lote:'Impressão industrial',tecnica:'Peças técnicas',proto:'Prototipagem',modelagem:'Modelagem 3D'};
+const CITIES=['São Paulo','Campinas','Sorocaba','Ribeirão Preto','Santos','São José dos Campos','Jundiaí','Piracicaba','Bauru','Interior de SP'];
+const PRAZOS=['Sem pressa','Até 1 semana','Urgente'];
+const POOL=[{id:'k1',name:'Rafa 3D Studio',level:'Ouro',rating:4.9,city:'Campinas'},{id:'k2',name:'Oficina Layer',level:'Prata',rating:4.7,city:'São Paulo'},{id:'k3',name:'Marina Prints',level:'Iniciante',rating:5,city:'Santos'},{id:'k4',name:'Forma Certa Industrial',level:'Platinum',rating:4.8,city:'Sorocaba'}];
+const SEED=[
+ ['s1','Suporte para controle de portão','reposicao',1,'?','Sem pressa',80,'Campinas','Comercial',1,5,0],
+ ['s2','Miniatura RPG: dragão','mini',1,'Resina','Até 1 semana',150,'São Paulo','Comercial',2,20,0],
+ ['s3','30 suportes personalizados para balcão','suporte',30,'PETG','Até 1 semana',700,'Sorocaba','Empresa',0,2,0],
+ ['s4','100 peças técnicas para manutenção','lote',100,'ASA','Urgente',2500,'Jundiaí','Empresa',3,30,1],
+ ['s5','Chaveiros com logo (200 un)','brinde',200,'PLA','Até 1 semana',1000,'Santos','Empresa',1,8,0],
+ ['s6','Protótipo de carcaça eletrônica','proto',3,'PETG','Até 1 semana',350,'Ribeirão Preto','Empresa',1,12,0],
+ ['s7','Vaso decorativo geométrico','deco',2,'PLA','Sem pressa',90,'Piracicaba','Comercial',0,1,0],
+ ['s8','Engrenagem de máquina de embalar','tecnica',5,'Nylon','Urgente',480,'Bauru','Empresa',4,40,0],
+ ['s9','Action figure personalizado (modelar e imprimir)','mini',1,'?','Sem pressa',220,'São José dos Campos','Comercial',2,9,0],
+ ['s10','Adaptador para aspirador','reposicao',1,'?','Sem pressa',60,'Jundiaí','Comercial',0,60,0]];
+const FIRST=['Ana','Bruno','Carla','Diego','Elisa','Fábio','Gabi','Hugo','Iara','João'];
+
+/* ---------- utilidades ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const brl=n=>'R$ '+n.toFixed(2).replace('.',',');
+const brl0=n=>'R$ '+Math.round(n).toLocaleString('pt-BR');
+const DAY=864e5;
+const hash=s=>{let x=0;for(const c of String(s))x=(x*31+c.charCodeAt(0))>>>0;return x};
+const cat=k=>CATS.find(c=>c.k===k)||CATS[9];
+function left(ts){const d=ts-Date.now();if(d<=0)return'expirado';const h=Math.floor(d/36e5);return h>=48?Math.floor(h/24)+' dias':h>=1?h+' h':'menos de 1 h'}
+
+/* ---------- estado ---------- */
+let S,D=null,F={},SHEET='',lastHash='';
+function seed(){return{role:null,client:null,maker:null,chats:{},seq:100,reqs:SEED.map(a=>({id:a[0],title:a[1],cat:a[2],qty:a[3],mat:a[4],prazo:a[5],budget:a[6],city:a[7],seg:a[8],used:a[9],ageH:a[10],rec:!!a[11],desc:'',cn:FIRST[hash(a[0])%10],ph:'(11) 9'+String(1000+hash(a[0])%8999)+'-'+String(1000+hash(a[1])%8999),em:'cliente.'+a[0]+'@exemplo.com',mine:false,makers:[],t:Date.now()-a[10]*36e5}))}}
+function load(){try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}if(!S||!S.reqs)S=seed()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){toast('Memória do navegador cheia (fotos grandes)')}}
+function demoProfiles(){
+ S.client={name:'Carla Souza',phone:'(11) 98888-1234',email:'carla@exemplo.com',type:'PF',coins:0};
+ S.maker={name:'Rafa Prints',city:'Campinas',equip:1,mats:['PLA','PETG'],seg:'Ambos',specs:['Impressão geral'],lots:[],closed:0,good:0,unl:[],spec:{},firstBought:false,extra:false,trialEnd:Date.now()+CFG.trialDias*DAY};
+ save()}
+
+/* ---------- regras de negócio (simuladas) ---------- */
+function est(r){const c=cat(r.cat),g=c.g*r.qty,h=c.h*r.qty,kg=CFG.kg[r.mat==='?'?'PLA':r.mat]||100;
+ const custo=g/1000*kg+h*CFG.hora+h*(CFG.w/1000)*CFG.kwh;return{custo,min:custo*CFG.min,max:custo*CFG.max}}
+function inferCat(t){t=(t||'').toLowerCase();for(const k in KW)if(KW[k].split(' ').some(w=>t.includes(w)))return k;return'outro'}
+function cepCity(cep){const d=String(cep).replace(/\D/g,'');if(d.length<8)return null;const n=parseInt(d.slice(0,5),10);
+ if(n>=1000&&n<=5999)return'São Paulo';if(n>=13000&&n<=13139)return'Campinas';if(n>=18000&&n<=18109)return'Sorocaba';
+ if(n>=14000&&n<=14109)return'Ribeirão Preto';if(n>=11000&&n<=11099)return'Santos';if(n>=12200&&n<=12249)return'São José dos Campos';
+ if(n>=13200&&n<=13219)return'Jundiaí';if(n>=13400&&n<=13424)return'Piracicaba';if(n>=17000&&n<=17109)return'Bauru';
+ if(n>=1000&&n<=19999)return'Interior de SP';return'FORA'}
+function need(r){return cat(r.cat).need}
+function spec(r){return CATSPEC[r.cat]||'Impressão geral'}
+function used(r){return r.used||0}
+function lots(m){return(m.lots||[]).filter(l=>l.exp>Date.now()&&l.n>0)}
+function bal(m){return lots(m).reduce((a,l)=>a+l.n,0)}
+function spend(m,n){let k=n;m.lots=lots(m).sort((a,b)=>a.exp-b.exp);for(const l of m.lots){const t=Math.min(l.n,k);l.n-=t;k-=t;if(!k)break}m.lots=lots(m)}
+function levelIdx(m){let i=0;LV.forEach((l,j)=>{if(m.closed>=l.c&&m.good>=l.r)i=j});return i}
+function trialOn(m){return Date.now()<m.trialEnd}
+function effLevel(m){return trialOn(m)?'Ouro':LV[levelIdx(m)].n}
+function access(lv){return{email:lv==='Prata'||lv==='Platinum',phone:lv==='Ouro'||lv==='Platinum'}}
+function topSpec(m){const e=Object.entries(m.spec||{}).sort((a,b)=>b[1]-a[1]);return e.length?e[0][0]:null}
+function compat(r,m){let s=40;const why=[];
+ if(r.mat==='?'){s+=15;why.push('Material flexível')}else if(m.mats.includes(r.mat)){s+=25;why.push('Você imprime '+r.mat)}else s-=10;
+ if(m.equip>=need(r)){s+=15;why.push('Seu equipamento atende')}
+ if(m.seg==='Ambos'||(m.seg==='Empresas'&&r.seg==='Empresa')||(m.seg==='Comercial'&&r.seg==='Comercial')){s+=10;why.push(r.seg==='Empresa'?'Você atende empresas':'Você atende clientes comerciais')}
+ if(r.city===m.city){s+=10;why.push('Mesma cidade')}else s+=4;
+ if((m.specs||[]).includes(spec(r))){s+=5;why.push('Sua especialidade')}
+ return{s:Math.min(99,Math.max(10,s)),why}}
+function discover(r,m){return hash(m.name+r.id+new Date().toDateString())%10<3} /* os 30% de descoberta (simulado) */
+function unlockCost(r){let base=r.budget<=100?150:r.budget<=400?250:400;if(r.seg==='Empresa')base*=2;if(r.rec)base*=1.5;
+ let m=1,why='Preço padrão';const lf=CFG.vagas-used(r);
+ if(lf===1){m*=1.3;why='Última vaga'}else if(r.ageH>48){m*=.8;why='Pedido antigo, mais barato'}else if(['São Paulo','Campinas'].includes(r.city)){m*=1.2;why='Alta demanda na região'}
+ m=Math.min(1.5,Math.max(.8,m));return{price:Math.round(base*m/10)*10,why}}
+function myUnl(m,id){return(m.unl||[]).find(u=>u.rid===id)}
+function req(id){return S.reqs.find(r=>r.id===id)}
+function verdict(r){const e=est(r);if(r.cat==='modelagem')return null;
+ if(r.budget>=e.min*.9)return{ok:1,t:'Orçamento do cliente compatível com a estimativa.'};return{ok:0,t:'Orçamento abaixo da estimativa. Dá para negociar, mas pese antes de desbloquear.'}}
+
+/* ---------- interface básica ---------- */
+function thumb(r){return r.photo?`<img src="${r.photo}" alt="">`:cat(r.cat).e}
+function toast(t){const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2600)}
+function chips(arr,cur,k,multi){return`<div class="chips">${arr.map(v=>{const on=multi?(cur||[]).includes(v):cur===v;return`<button type="button" class="chip ${on?'on':''}" data-a="${multi?'tog':'set'}" data-p="${k}|${esc(v)}">${esc(v)}</button>`}).join('')}</div>`}
+function head(){return`<header><a href="#/"><span class="logo">Print<b>ou</b></span></a>${S.role?'<button class="lnk" data-a="switch">Trocar perfil</button>':'<a class="lnk" href="#/about">Sobre</a>'}</header><div class="strip">Protótipo ilustrativo · dados fictícios · Pix e verificações simulados</div>`}
+function nav(p){const c=S.role==='client';const it=c?[['c','📋','Pedidos'],['c/new','＋','Novo pedido','plus'],['c/wallet','🪙','Moedas']]:[['m','🔎','Oportunidades'],['m/deals','💬','Contatos'],['m/wallet','🪙','Moedas'],['m/me','👤','Perfil']];
+ return`<nav>${it.map(i=>`<a href="#/${i[0]}" class="${i[3]||''} ${p===i[0]?'on':''}"><span>${i[1]}</span>${i[2]}</a>`).join('')}</nav>`}
+function back(h,t){return`<a class="back" href="#/${h}">← ${t||'Voltar'}</a>`}
+function empty(ic,t,btn){return`<div class="empty"><div class="ic">${ic}</div><p>${t}</p>${btn||''}</div>`}
+
+/* ---------- telas: início e cadastro ---------- */
+function vWelcome(){return`<div class="hero"><h1>Sua próxima impressão pode ser seu próximo contrato.</h1><p>Conectamos quem precisa de uma peça impressa em 3D com quem tem impressora.</p></div>
+ <button class="big" data-a="enter" data-p="client"><span class="ic">📸</span><span><b>Preciso de uma impressão</b><span class="muted sm">Mande uma foto. É grátis.</span></span></button>
+ <button class="big" data-a="enter" data-p="maker"><span class="ic">🖨️</span><span><b>Tenho impressora 3D</b><span class="muted sm">Receba pedidos de clientes.</span></span></button>
+ <p class="muted sm" style="text-align:center">Teste inicial: estado de São Paulo</p>`}
+function vSignupC(){F.type=F.type||'PF';return`${back('','Início')}<h1>Criar conta</h1><p class="muted">Só o básico. Seus dados só vão para o maker que desbloquear seu pedido.</p>
+ <label>Seu nome</label><input data-k="F.name" value="${esc(F.name||'')}" placeholder="Nome">
+ <label>WhatsApp</label><input data-k="F.phone" inputmode="tel" value="${esc(F.phone||'')}" placeholder="(11) 90000-0000">
+ <label>E-mail <small>(opcional)</small></label><input data-k="F.email" inputmode="email" value="${esc(F.email||'')}" placeholder="voce@email.com">
+ <label>Você é</label>${chips(['PF','Empresa'],F.type,'F.type')}
+ ${F.type==='Empresa'?`<label>Nome da empresa</label><input data-k="F.company" value="${esc(F.company||'')}" placeholder="Razão social">`:''}
+ <div style="margin-top:22px"><button class="btn" data-a="signupC">Entrar</button></div>`}
+function vSignupM(){F.equip=F.equip==null?1:F.equip;F.mats=F.mats||['PLA','PETG'];F.seg=F.seg||'Ambos';F.city=F.city||'São Paulo';
+ return`${back('','Início')}<h1>Cadastro do maker</h1><p class="muted">Com isso mostramos só pedidos que você consegue fazer.</p>
+ <label>Seu nome ou nome da oficina</label><input data-k="F.name" value="${esc(F.name||'')}" placeholder="Nome">
+ <label>Cidade</label><select data-k="F.city">${CITIES.map(c=>`<option ${c===F.city?'selected':''}>${c}</option>`).join('')}</select>
+ <label>Sua impressora</label><div class="chips">${EQUIP.map((e,i)=>`<button type="button" class="chip ${F.equip===i?'on':''}" data-a="set" data-p="F.equip|${i}">${e}</button>`).join('')}</div><div class="muted sm" style="margin-top:6px">${EQHINT[F.equip]}</div>
+ <label>Materiais que você imprime</label>${chips(MATS,F.mats,'F.mats',1)}
+ <label>Você atende</label>${chips(['Comercial','Empresas','Ambos'],F.seg,'F.seg')}
+ <label>O que você faz melhor <small>(opcional)</small></label>${chips(SPECS,F.specs,'F.specs',1)}
+ <div class="banner gold" style="margin-top:18px">🎁 Você ganha <b>3 dias de benefícios Ouro</b> para começar.</div>
+ <button class="btn" data-a="signupM">Ver oportunidades</button>`}
+
+/* ---------- cliente ---------- */
+function vClientHome(){const rs=S.reqs.filter(r=>r.mine).sort((a,b)=>b.t-a.t);
+ return`<h1>Olá, ${esc(S.client.name.split(' ')[0])} 👋</h1><p class="muted">O que você quer imprimir hoje?</p>
+ <a class="btn" href="#/c/new">📸 Pedir uma impressão</a>
+ <h2>Meus pedidos</h2>${rs.length?rs.map(r=>`<a class="card opp" href="#/c/r/${r.id}"><div class="thumb">${thumb(r)}</div><div class="grow"><b>${esc(r.title)}</b><div class="muted sm">${used(r)===0?'Aguardando makers':used(r)+' maker(s) querem falar com você'}</div><span class="tag ${r.boost?'gold':'gray'}">${r.boost?'Em destaque':'Publicado'}</span><span class="tag gray">${used(r)} de ${CFG.vagas} vagas</span></div></a>`).join(''):empty('📭','Você ainda não pediu nada.')}`}
+function vNew(){if(!D)D={step:1,cat:'',desc:'',photo:'',file:'',qty:1,mat:'?',prazo:'Sem pressa',budget:'',cep:''};
+ if(D.step===1)return`${back('c')}<div class="steps"><i class="on"></i><i></i></div><h1>O que você precisa?</h1><p class="muted">Pode mandar só uma foto. O resto é opcional.</p>
+ <label class="drop" for="photo">${D.photo?`<img src="${D.photo}" alt="">`:`<span style="font-size:34px">📷</span>Toque para enviar foto ou arquivo STL<small style="font-weight:400">${esc(D.file||'')}</small>`}</label>
+ <input id="photo" type="file" accept="image/*,.stl" hidden>
+ <label>Descreva com suas palavras <small>(opcional)</small></label><textarea data-k="D.desc" placeholder="Ex.: suporte quebrado do meu aspirador">${esc(D.desc)}</textarea>
+ <label>Ou escolha um tipo <small>(opcional)</small></label><div class="chips">${CATS.map(c=>`<button type="button" class="chip ${D.cat===c.k?'on':''}" data-a="set" data-p="D.cat|${c.k}">${c.e} ${c.n}</button>`).join('')}</div>
+ <div style="margin-top:22px"><button class="btn" data-a="next" ${(D.photo||D.file||D.desc.trim()||D.cat)?'':'disabled'}>Continuar</button></div>`;
+ const k=D.cat||inferCat(D.desc),c=cat(k),city=cepCity(D.cep),r={cat:k,qty:D.qty,mat:D.mat},e=est(r);
+ return`<a class="back" href="#/c/new" data-a="prev">← Voltar</a><div class="steps"><i class="on"></i><i class="on"></i></div><h1>Quase pronto</h1>
+ <div class="card soft"><div class="sm muted">Entendemos assim</div><b>${c.e} ${c.n}</b> · ${D.qty} un · ${D.mat==='?'?'material a definir':D.mat}</div>
+ <label>Quantidade</label><div class="row"><button class="btn sec sm" data-a="qty" data-p="-1">−</button><b style="min-width:40px;text-align:center;font-size:20px">${D.qty}</b><button class="btn sec sm" data-a="qty" data-p="1">+</button></div>
+ <label>Material <small>(não sabe? deixe "Não sei")</small></label><div class="chips"><button type="button" class="chip ${D.mat==='?'?'on':''}" data-a="set" data-p="D.mat|?">Não sei</button>${MATS.map(m=>`<button type="button" class="chip ${D.mat===m?'on':''}" data-a="set" data-p="D.mat|${m}">${m}</button>`).join('')}</div>
+ <div class="muted sm" style="margin-top:6px">Dica: uso externo, ASA. Carga pesada, PETG-CF ou Nylon.</div>
+ <label>Prazo</label>${chips(PRAZOS,D.prazo,'D.prazo')}
+ <label>Quanto quer gastar? <small>(R$)</small></label><input data-k="D.budget" inputmode="numeric" value="${esc(D.budget)}" placeholder="Ex.: 80">
+ <label>Seu CEP</label><input data-k="D.cep" inputmode="numeric" value="${esc(D.cep)}" placeholder="00000-000">
+ ${city==='FORA'?'<div class="banner gold" style="margin-top:10px">Ainda não atendemos sua região. Estamos começando por São Paulo. <a data-a="wait" href="#/c/new"><b>Entrar na lista de espera</b></a></div>':city?`<div class="muted sm" style="margin-top:6px">📍 ${city}</div>`:''}
+ ${c.g?`<div class="est" style="margin-top:16px"><div class="sm muted">Estimativa de preço</div><b>${brl0(e.min)} a ${brl0(e.max)}</b><div class="sm muted" style="margin-top:4px">Valores estimados, calculados com base em médias. O preço final é negociado com o maker.</div></div>`:''}
+ <div style="margin-top:22px"><button class="btn" data-a="publish" ${(city&&city!=='FORA'&&+D.budget>0)?'':'disabled'}>Publicar de graça</button></div>
+ ${(city&&city!=='FORA'&&+D.budget>0)?'':'<div class="muted sm" style="text-align:center;margin-top:8px">Preencha orçamento e CEP de SP para publicar.</div>'}`}
+function vClientReq(id){const r=req(id);if(!r)return empty('🤷','Pedido não encontrado.');const e=est(r);
+ return`${back('c','Meus pedidos')}<div class="thumb big">${thumb(r)}</div><h1>${esc(r.title)}</h1>
+ <div><span class="tag ${r.boost?'gold':''}">${r.boost?'Em destaque':'Publicado'}</span><span class="tag gray">${used(r)} de ${CFG.vagas} vagas usadas</span><span class="tag gray">${esc(r.city)}</span></div>
+ ${r.desc?`<p>${esc(r.desc)}</p>`:''}
+ <div class="grid" style="margin:12px 0"><div><span>Quantidade</span>${r.qty}</div><div><span>Material</span>${r.mat==='?'?'A definir':r.mat}</div><div><span>Prazo</span>${r.prazo}</div><div><span>Orçamento</span>${brl0(r.budget)}</div></div>
+ ${cat(r.cat).g?`<div class="est"><div class="sm muted">Estimativa</div><b>${brl0(e.min)} a ${brl0(e.max)}</b><div class="sm muted">Valores estimados, calculados com base em médias.</div></div>`:''}
+ <h2>Makers interessados</h2>
+ ${r.makers.length?r.makers.map(m=>`<a class="card opp" href="#/chat/${r.id}/${m.id}"><div class="thumb" style="width:48px;height:48px;font-size:22px">🖨️</div><div class="grow"><b>${esc(m.name)}</b><div class="muted sm">${esc(m.city)} · ⭐ ${m.rating}</div></div><span class="tag ${m.level==='Iniciante'?'gray':'gold'}">${m.level}</span></a>`).join(''):`<div class="card soft muted">Ninguém ainda. Os makers compatíveis já estão vendo seu pedido.</div>`}
+ <button class="btn ghost sm" style="margin:4px 0 14px" data-a="sim" data-p="${r.id}">🎬 Demo: simular um maker interessado</button>
+ ${r.boost?'':`<div class="card"><h3>⭐ Quer mais visibilidade?</h3><p class="muted sm" style="margin:0 0 10px">Destaque seu pedido por ${CFG.destaque} moedas. Ele aparece primeiro para makers compatíveis. Não garante contratação.</p><button class="btn sec" data-a="boost" data-p="${r.id}">Destacar (${CFG.destaque} moedas)</button></div>`}`}
+function vClientWallet(){const c=S.client;return`<h1>Moedas</h1><div class="hero"><p>Seu saldo</p><h1 style="font-size:40px;margin:0">🪙 ${c.coins}</h1></div>
+ <p class="muted">As moedas do cliente servem só para destacar pedidos. São independentes das moedas dos makers.</p>
+ <div class="card"><b>${CFG.clientePack.c} moedas</b> por <b>${brl(CFG.clientePack.p)}</b><div style="margin-top:10px"><button class="btn" data-a="buyC">Comprar (Pix simulado)</button></div></div>
+ <div class="card soft sm muted">Cada destaque custa ${CFG.destaque} moedas. Moedas valem 90 dias.</div>`}
+
+/* ---------- maker ---------- */
+function vFeed(){const m=S.maker;const items=S.reqs.map(r=>{const c=compat(r,m),d=discover(r,m),u=myUnl(m,r.id),lock=m.equip<need(r);
+  return{r,c,d,u,lock,sort:c.s+(r.boost?8:0)+(d?6:0)+(r.ageH<24?2:0)-(u?200:0)-(lock?50:0)}})
+ .filter(x=>x.u||(used(x.r)<CFG.vagas&&(x.c.s>=55||x.d))).sort((a,b)=>b.sort-a.sort);
+ const lv=effLevel(m);
+ return`<h1>Oportunidades</h1><p class="muted">Pedidos de clientes que combinam com você.</p>
+ ${trialOn(m)?`<a class="banner gold" style="display:block" href="#/m/me">🎁 Benefícios Ouro por mais <b>${left(m.trialEnd)}</b></a>`:''}
+ ${bal(m)===0?`<div class="banner blue" style="cursor:pointer" data-a="openBuy">🪙 Você tem 0 moedas. Toque para comprar o primeiro pacote.</div>`:''}
+ ${items.map(x=>{const r=x.r,left=CFG.vagas-used(r);return`<a class="card opp" href="#/m/o/${r.id}"><div class="thumb">${thumb(r)}</div><div class="grow"><div class="row between"><b>${esc(r.title)}</b><span class="score ${x.c.s>=80?'hi':x.c.s>=65?'mid':'lo'}">${x.c.s}%</span></div>
+  <div class="muted sm">${esc(r.city)} · ${r.seg==='Empresa'?'Empresa':'Pessoa ou comércio'} · ${r.qty} un</div>
+  <div>${x.u?'<span class="tag ok">Desbloqueado</span>':''}${x.d&&!x.u?'<span class="tag">Descoberta</span>':''}${r.boost?'<span class="tag gold">Destaque</span>':''}${r.ageH<24?'<span class="tag ok">Novo</span>':''}${r.rec?'<span class="tag">Recorrente</span>':''}${x.lock?'<span class="tag warn">Exige '+EQUIP[need(r)].toLowerCase()+'</span>':''}</div>
+  <div class="row between" style="margin-top:6px"><span>Orçamento <b>${brl0(r.budget)}</b></span><span class="muted sm">${left} de ${CFG.vagas} vagas</span></div></div></a>`}).join('')||empty('🔎','Nenhum pedido compatível agora.')}`}
+function vOpp(id){const m=S.maker,r=req(id);if(!r)return empty('🤷','Pedido não encontrado.');
+ const c=compat(r,m),u=unlockCost(r),un=myUnl(m,r.id),lock=m.equip<need(r),v=verdict(r),e=est(r),lv=effLevel(m),ac=access(lv),full=used(r)>=CFG.vagas&&!un;
+ let contact;
+ if(un){contact=`<div class="card"><h3>Contato do cliente</h3><div class="col" style="gap:6px"><div>👤 <b>${esc(r.cn)}</b></div>
+  <div>💬 Chat do Printou: <b>liberado</b></div>
+  <div class="${ac.email?'':'lock'}">${ac.email?'✉️ '+esc(r.em):'🔒 E-mail: a partir do nível Prata'}</div>
+  <div class="${ac.phone?'':'lock'}">${ac.phone?'📞 '+esc(r.ph):'🔒 Telefone: a partir do nível Ouro'}</div></div>
+  <div style="margin-top:12px"><a class="btn" href="#/chat/${r.id}/me">Abrir chat</a></div></div>`}
+ else if(lock)contact=`<div class="banner gold">Este pedido exige impressora ${EQUIP[need(r)].toLowerCase()}. Atualize seu equipamento no perfil para ver.</div>`;
+ else if(full)contact=`<div class="banner gold">Pedido lotado: ${CFG.vagas} makers já desbloquearam.</div>`;
+ else contact=`<div class="card"><h3>Contato do cliente</h3><div class="blur">👤 Nome do cliente<br>📞 (11) 9•••• ••••</div>
+  <div class="row between" style="margin:12px 0"><div><b style="font-size:22px">🪙 ${u.price}</b><div class="muted sm">${u.why}</div></div><span class="muted sm">${CFG.vagas-used(r)} de ${CFG.vagas} vagas</span></div>
+  <button class="btn" data-a="unlock" data-p="${r.id}">Desbloquear contato</button>
+  <div class="muted sm" style="margin-top:8px">Seu saldo: 🪙 ${bal(m)}. Você vê o preço e o motivo antes de pagar.</div></div>`;
+ return`${back('m','Oportunidades')}<div class="thumb big">${thumb(r)}</div><h1>${esc(r.title)}</h1>
+ <div><span class="tag">${r.seg==='Empresa'?'Empresa':'Pessoa ou comércio'}</span><span class="tag gray">${esc(r.city)}</span>${r.rec?'<span class="tag">Recorrente</span>':''}${r.ageH<24?'<span class="tag ok">Novo</span>':''}</div>
+ <div class="grid" style="margin:12px 0"><div><span>Quantidade</span>${r.qty}</div><div><span>Material</span>${r.mat==='?'?'A definir':r.mat}</div><div><span>Prazo</span>${r.prazo}</div><div><span>Orçamento</span><b>${brl0(r.budget)}</b></div></div>
+ <div class="card soft"><div class="row between"><b>Por que para você</b><span class="score ${c.s>=80?'hi':'mid'}">${c.s}% compatível</span></div><div>${c.why.map(w=>`<span class="tag ok">${esc(w)}</span>`).join('')}</div>
+ <div class="muted sm" style="margin-top:6px">Indicador de adequação, não garante contrato.</div></div>
+ ${cat(r.cat).g?`<div class="est"><div class="sm muted">Vale a pena? Estimativa de mercado</div><b>${brl0(e.min)} a ${brl0(e.max)}</b>${v?`<div class="verdict ${v.ok?'ok':'warn'}">${v.t}</div>`:''}<div class="sm muted" style="margin-top:6px">Valores estimados, calculados com base em médias. O preço final é negociado com o cliente.</div></div>`:''}
+ <div style="margin-top:14px">${contact}</div>`}
+function vDeals(){const m=S.maker;return`<h1>Contatos</h1>${m.unl.length?m.unl.slice().reverse().map(u=>{const r=req(u.rid);return`<a class="card opp" href="#/m/o/${r.id}"><div class="thumb">${thumb(r)}</div><div class="grow"><b>${esc(r.title)}</b><div class="muted sm">${esc(r.cn)} · ${esc(r.city)}</div><span class="tag ${u.state==='Fechado'?'ok':''}">${u.state}</span></div></a>`}).join(''):empty('💬','Você ainda não desbloqueou nenhum pedido.','<a class="btn sec" href="#/m">Ver oportunidades</a>')}`}
+function vMWallet(){const m=S.maker;const pk=PK.filter(p=>!p.first||!m.firstBought);
+ return`<h1>Moedas</h1><div class="hero"><p>Seu saldo</p><h1 style="font-size:40px;margin:0">🪙 ${bal(m)}</h1></div>
+ ${lots(m).length?`<h2 style="margin-top:0">Validade</h2>${lots(m).map(l=>`<div class="card soft row between"><b>🪙 ${l.n}</b><span class="muted sm">vence em ${left(l.exp)}</span></div>`).join('')}`:''}
+ <h2>Comprar moedas</h2>${packs(pk)}
+ <div class="card soft sm muted">Moedas valem ${CFG.validade} dias. Desbloqueios começam em 150 moedas. Pacotes maiores são sugestão. Pix simulado.</div>`}
+function packs(pk){return pk.map(p=>{const i=PK.indexOf(p);const big=p.p>=CFG.trialExtraMin&&!S.maker.extra;return`<div class="card"><div class="row between"><div><b style="font-size:20px">🪙 ${p.c}</b>${p.first?' <span class="tag ok">Primeira compra</span>':''}${big?' <span class="tag gold">+7 dias Ouro</span>':''}</div><b>${brl(p.p)}</b></div><div style="margin-top:10px"><button class="btn ${p.first?'':'sec'}" data-a="buyM" data-p="${i}">Comprar</button></div></div>`}).join('')}
+function vMe(){const m=S.maker,li=levelIdx(m),L=LV[li],N=LV[li+1],ac=access(effLevel(m));
+ const bar=(a,b,t)=>`<div class="row between sm"><span>${t}</span><b>${a}/${b}</b></div><div class="bar"><i style="width:${Math.min(100,a/b*100)}%"></i></div>`;
+ return`<h1>${esc(m.name)}</h1><div class="muted">${esc(m.city)} · impressora ${EQUIP[m.equip].toLowerCase()}</div>
+ ${trialOn(m)?`<div class="banner gold" style="margin-top:12px">🎁 Benefícios Ouro por mais <b>${left(m.trialEnd)}</b>. Depois volta para ${L.n}. ${m.extra?'':'Comprando '+brl(CFG.trialExtraMin)+' em moedas você ganha +'+CFG.trialExtraDias+' dias.'}</div>`:''}
+ <div class="card" style="margin-top:12px"><div class="row between"><div><div class="muted sm">Seu nível</div><b style="font-size:24px">${L.n}</b></div><span class="tag gold">${m.closed} contratos</span></div>
+ ${N?`<div style="margin-top:12px">${bar(m.closed,N.c,'Contratos fechados para '+N.n)}</div><div style="margin-top:10px">${bar(m.good,N.r,'Avaliações acima de 4 estrelas')}</div>`:'<div class="muted sm" style="margin-top:8px">Você está no nível máximo.</div>'}
+ <div class="muted sm" style="margin-top:10px">Principal área: <b>${topSpec(m)||'ainda sem contratos'}</b></div>
+ <div class="muted sm" style="margin-top:6px">Metas ilustrativas, ainda serão calibradas.</div></div>
+ <div class="card soft"><h3>O que seu nível libera</h3><ul class="clean sm"><li>Chat: sim</li><li>E-mail do cliente: ${ac.email?'sim':'não'}</li><li>Telefone do cliente: ${ac.phone?'sim':'não'}</li></ul></div>
+ <h2>Seu perfil</h2><label style="margin-top:0">Impressora</label><div class="chips">${EQUIP.map((e,i)=>`<button type="button" class="chip ${m.equip===i?'on':''}" data-a="setM" data-p="equip|${i}">${e}</button>`).join('')}</div>
+ <label>Materiais</label>${chips(MATS,m.mats,'M.mats',1)}<label>Você atende</label>${chips(['Comercial','Empresas','Ambos'],m.seg,'M.seg')}
+ <label>Especialidades</label>${chips(SPECS,m.specs,'M.specs',1)}
+ <div style="margin-top:20px"><button class="btn ghost sm" data-a="demoLevel">🎬 Demo: simular +3 contratos fechados</button></div>`}
+
+/* ---------- chat (os dois lados) ---------- */
+function vChat(rid,mid){const r=req(rid);if(!r)return empty('🤷','Conversa não encontrada.');const key=rid+'|'+mid,msgs=S.chats[key]||[],mine=S.role==='client'?'c':'m';
+ const who=S.role==='client'?(r.makers.find(x=>x.id===mid)||{name:'Maker'}).name:r.cn;
+ const un=S.maker&&myUnl(S.maker,rid);
+ return`${back(S.role==='client'?'c/r/'+rid:'m/o/'+rid,'Voltar')}<div class="row between"><div><b style="font-size:20px">${esc(who)}</b><div class="muted sm">${esc(r.title)}</div></div></div>
+ ${S.role==='maker'&&un&&un.state!=='Fechado'?`<button class="btn sec sm" style="margin-top:10px" data-a="close" data-p="${rid}">✅ Marcar contrato como fechado</button>`:''}
+ <div class="msgs">${msgs.map(x=>`<div class="bub ${x.f===mine?'me':''}">${esc(x.t)}</div>`).join('')||'<div class="muted sm">Diga olá 👋</div>'}</div>
+ <div class="chips" style="margin-bottom:8px">${(S.role==='client'?['Qual o prazo?','Pode me enviar uma foto de exemplo?']:['Posso fazer por '+brl0(r.budget)+'.','Qual cor você prefere?']).map(t=>`<button class="chip" data-a="quick" data-p="${rid}|${mid}|${esc(t)}">${esc(t)}</button>`).join('')}</div>
+ <div class="chatbar"><input id="msg" placeholder="Mensagem" data-enter="${rid}|${mid}"><button class="btn sm" data-a="send" data-p="${rid}|${mid}">Enviar</button></div>
+ <div class="muted sm">Telefone e e-mail só aparecem para quem tem o nível e fez o desbloqueio.</div>`}
+function vAbout(){return`${back('','Início')}<h1>Sobre este protótipo</h1>
+ <div class="card"><h3>É simulado</h3><ul class="clean sm"><li>Dados ficam só neste navegador</li><li>Pix, CEP e verificação de contas são de mentira</li><li>Os makers e clientes são fictícios</li><li>Cliente e maker precisam estar no mesmo aparelho</li></ul></div>
+ <div class="card"><h3>Já definido</h3><ul class="clean sm"><li>Cliente publica grátis, maker paga para desbloquear</li><li>No máximo 4 makers por pedido</li><li>Moedas valem 90 dias</li><li>Níveis: Iniciante, Prata, Ouro e Platinum</li><li>Distribuição 70/30 (matching e descoberta)</li><li>Destaque do cliente: ${CFG.destaque} moedas</li><li>3 dias de Ouro para novos makers; +7 dias ao comprar R$ 150</li><li>Teste no estado de São Paulo</li></ul></div>
+ <div class="card"><h3>Ainda em aberto</h3><ul class="clean sm"><li>Nome final e marca no INPI; domínio printou.com.br</li><li>Tarifa de energia (R$ 1,50/kWh é hipótese)</li><li>Preço por kg dos outros materiais</li><li>Hora-máquina de equipamentos como a H2D</li><li>Pacotes de moedas para empresas</li><li>Primeiro desbloqueio grátis: mantém ou perde?</li><li>O Ouro mantém o e-mail do cliente, além do telefone?</li><li>Metas de contratos por nível</li><li>Critérios de reembolso de lead falso</li><li>Parecer jurídico sobre moedas</li></ul></div>
+ <button class="btn ghost" data-a="reset">Apagar dados do protótipo</button>`}
+
+/* ---------- ações ---------- */
+function setK(k,v){const [o,f]=k.split('.');({D,F,M:S.maker})[o][f]=v}
+const A={
+ enter(role){const has=role==='client'?S.client:S.maker;S.role=role;save();F={};location.hash=has?(role==='client'?'#/c':'#/m'):'#/signup/'+(role==='client'?'c':'m')},
+ switch(){S.role=null;save();location.hash='#/'},
+ signupC(){if(!(F.name||'').trim()||!(F.phone||'').trim()){toast('Preencha nome e WhatsApp');return}
+  S.client={name:F.name.trim(),phone:F.phone.trim(),email:F.email||'',type:F.type||'PF',company:F.company||'',coins:0};S.role='client';save();F={};location.hash='#/c'},
+ signupM(){if(!(F.name||'').trim()){toast('Preencha seu nome');return}
+  S.maker={name:F.name.trim(),city:F.city,equip:F.equip,mats:F.mats,seg:F.seg,specs:F.specs||[],lots:[],closed:0,good:0,unl:[],spec:{},firstBought:false,extra:false,trialEnd:Date.now()+CFG.trialDias*DAY};S.role='maker';save();F={};location.hash='#/m'},
+ set(p){const [k,v]=p.split('|');const [o,f]=k.split('.');const t={D,F,M:S.maker}[o];t[f]=(f==='equip')?+v:v;if(o==='M')save();render()},
+ tog(p){const [k,v]=p.split('|');const [o,f]=k.split('.');const t={D,F,M:S.maker}[o];t[f]=t[f]||[];const i=t[f].indexOf(v);i<0?t[f].push(v):t[f].splice(i,1);if(o==='M')save();render()},
+ setM(p){const [f,v]=p.split('|');S.maker[f]=+v;save();render()},
+ next(){D.step=2;render()},prev(){D.step=1;render()},
+ qty(d){D.qty=Math.max(1,D.qty+(+d));render()},
+ wait(){toast('Você entrou na lista de espera (simulado)')},
+ publish(){const k=D.cat||inferCat(D.desc),c=cat(k),id='u'+(S.seq++);
+  S.reqs.unshift({id,title:(D.desc.trim()?D.desc.trim().slice(0,48):c.n),cat:k,qty:D.qty,mat:D.mat,prazo:D.prazo,budget:+D.budget,city:cepCity(D.cep),seg:S.client.type==='Empresa'?'Empresa':'Comercial',used:0,ageH:0,rec:false,desc:D.desc,photo:D.photo||'',cn:S.client.name,ph:S.client.phone,em:S.client.email||'sem e-mail',mine:true,makers:[],t:Date.now()});
+  D=null;save();toast('Pedido publicado! Makers compatíveis já podem ver.');location.hash='#/c/r/'+id},
+ sim(id){const r=req(id);if(used(r)>=CFG.vagas){toast('Pedido lotado');return}const mk=POOL.find(p=>!r.makers.some(x=>x.id===p.id));if(!mk){toast('Sem mais makers de teste');return}
+  r.makers.push(mk);r.used=used(r)+1;S.chats[id+'|'+mk.id]=[{f:'m',t:'Olá! Posso fazer essa peça. Qual o prazo ideal para você?'}];save();toast(mk.name+' quer falar com você');render()},
+ boost(id){const c=S.client;if(c.coins<CFG.destaque){toast('Você precisa de '+CFG.destaque+' moedas');location.hash='#/c/wallet';return}c.coins-=CFG.destaque;req(id).boost=true;save();toast('Pedido em destaque!');render()},
+ buyC(){S.client.coins+=CFG.clientePack.c;save();toast('+'+CFG.clientePack.c+' moedas (Pix simulado)');render()},
+ openBuy(){SHEET=`<h2 style="margin-top:0">Comprar moedas</h2>${packs(PK.filter(p=>!p.first||!S.maker.firstBought))}<button class="btn ghost" data-a="closeSheet">Fechar</button>`;render()},
+ closeSheet(){SHEET='';render()},
+ buyM(i){const m=S.maker,p=PK[+i];m.lots.push({n:p.c,exp:Date.now()+CFG.validade*DAY});if(p.first)m.firstBought=true;
+  let msg='+'+p.c+' moedas (Pix simulado)';
+  if(p.p>=CFG.trialExtraMin&&!m.extra){m.trialEnd=Math.max(m.trialEnd,Date.now())+CFG.trialExtraDias*DAY;m.extra=true;msg+=' · +7 dias de Ouro!'}
+  SHEET='';save();toast(msg);render()},
+ unlock(id){const m=S.maker,r=req(id),c=unlockCost(r);if(used(r)>=CFG.vagas){toast('Pedido lotado');return}
+  if(bal(m)<c.price){toast('Faltam '+(c.price-bal(m))+' moedas');A.openBuy();return}
+  spend(m,c.price);r.used=used(r)+1;m.unl.push({rid:id,state:'Em conversa',at:Date.now()});
+  if(r.mine)r.makers.push({id:'me',name:m.name,level:LV[levelIdx(m)].n,rating:4.8,city:m.city});
+  S.chats[id+'|me']=[{f:'c',t:'Olá! Vi que você se interessou pelo meu pedido. Pode me passar um orçamento?'}];save();toast('Contato desbloqueado!');render()},
+ send(p){const [rid,mid]=p.split('|');const i=$('#msg');if(!i||!i.value.trim())return;A._say(rid,mid,i.value.trim())},
+ quick(p){const a=p.split('|');A._say(a[0],a[1],a.slice(2).join('|'))},
+ _say(rid,mid,t){const key=rid+'|'+mid,mine=S.role==='client'?'c':'m',other=mine==='c'?'m':'c';(S.chats[key]=S.chats[key]||[]).push({f:mine,t});save();render();
+  const R=mine==='c'?['Combinado! Consigo entregar em 5 dias.','Pode me mandar mais detalhes ou uma foto?','Fechado, posso começar essa semana.']:['Pode ser sim, obrigada!','Qual seria o prazo?','Perfeito, vamos fechar.'];
+  setTimeout(()=>{(S.chats[key]=S.chats[key]||[]).push({f:other,t:R[hash(t)%3]});save();if(lastHash.indexOf(rid)>=0)render()},1200)},
+ close(rid){const m=S.maker,u=myUnl(m,rid),r=req(rid);u.state='Fechado';m.closed++;m.good++;const s=spec(r);m.spec[s]=(m.spec[s]||0)+1;save();toast('Contrato fechado! Avaliação 5 estrelas (simulada)');render()},
+ demoLevel(){const m=S.maker;m.closed+=3;m.good+=3;m.spec['Impressão geral']=(m.spec['Impressão geral']||0)+3;save();render()},
+ reset(){if(confirm('Apagar tudo?')){localStorage.removeItem(KEY);load();D=null;F={};location.hash='#/';render()}}
+};
+
+/* ---------- roteador ---------- */
+function render(){try{
+ const h=location.hash||'#/',sg=h.slice(2).split('/'),changed=h!==lastHash;lastHash=h;let body='',nv='';
+ if(!sg[0])body=vWelcome();
+ else if(sg[0]==='about')body=vAbout();
+ else if(sg[0]==='signup')body=sg[1]==='c'?vSignupC():vSignupM();
+ else if(sg[0]==='chat'){if(!S.role){location.hash='#/';return}body=vChat(sg[1],sg[2]);nv=nav('')}
+ else if(sg[0]==='c'){if(!S.client){location.hash='#/signup/c';return}S.role='client';nv=nav(sg[1]||'c');
+  if(!sg[1]){body=vClientHome();nv=nav('c')}else if(sg[1]==='new'){body=vNew();nv=nav('c/new')}else if(sg[1]==='r')body=vClientReq(sg[2]);else if(sg[1]==='wallet'){body=vClientWallet();nv=nav('c/wallet')}}
+ else if(sg[0]==='m'){if(!S.maker){location.hash='#/signup/m';return}S.role='maker';
+  if(!sg[1]){body=vFeed();nv=nav('m')}else if(sg[1]==='o')body=vOpp(sg[2]);else if(sg[1]==='deals'){body=vDeals();nv=nav('m/deals')}else if(sg[1]==='wallet'){body=vMWallet();nv=nav('m/wallet')}else if(sg[1]==='me'){body=vMe();nv=nav('m/me')}}
+ else body=vWelcome();
+ $('#app').innerHTML=head()+'<main>'+body+'</main>'+nv+(SHEET?`<div class="sheet-bg" data-a="closeSheet"><div class="sheet">${SHEET}</div></div>`:'');
+ if(changed)window.scrollTo(0,0);
+}catch(e){$('#app').innerHTML='<pre style="padding:16px;white-space:pre-wrap">ERRO: '+esc(e.stack||e)+'</pre>'}}
+
+document.addEventListener('click',e=>{const el=e.target.closest('[data-a]');if(!el)return;const a=el.dataset.a;if(a==='closeSheet'&&el.classList.contains('sheet-bg')&&e.target!==el)return;if(A[a]){if(el.tagName==='A'&&a!=='prev'&&a!=='wait')return;e.preventDefault();A[a](el.dataset.p,el)}});
+document.addEventListener('input',e=>{const k=e.target.dataset&&e.target.dataset.k;if(k){setK(k,e.target.value);if(k==='D.cep'||k==='D.budget'){const pos=e.target.selectionStart;render();const n=document.querySelector('[data-k="'+k+'"]');if(n){n.focus();try{n.setSelectionRange(pos,pos)}catch(_){}}}}});
+document.addEventListener('change',e=>{const t=e.target;if(t.dataset&&t.dataset.k==='F.city'){render()}
+ if(t.id==='photo'&&t.files[0]){const f=t.files[0];if(/\.stl$/i.test(f.name)){D.file='Arquivo: '+f.name;render();return}
+  const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const s=Math.min(1,600/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*s;c.height=im.height*s;c.getContext('2d').drawImage(im,0,0,c.width,c.height);D.photo=c.toDataURL('image/jpeg',.7);render()};im.src=fr.result};fr.readAsDataURL(f)}});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.dataset&&e.target.dataset.enter){A.send(e.target.dataset.enter)}});
+window.addEventListener('hashchange',render);
+load();
+if(/[?&]demo/.test(location.search)&&!S.client){demoProfiles()}
+render();
+</script>
+</body>
+</html>
